@@ -32,7 +32,7 @@ export const domains: Domain[] = [
       { name: "Kaggle ML Competitions", slug: "kaggle-ml" },
       { name: "AI Maze Solver", slug: "ai-maze-solver" },
     ],
-    sectionId: "projects-ai",
+    sectionId: "aiml",
   },
   {
     id: "product-builds",
@@ -47,7 +47,7 @@ export const domains: Domain[] = [
       { name: "S.H.A.R.E", slug: "share" },
       { name: "Campus Lost & Found", slug: "lost-and-found" },
     ],
-    sectionId: "projects-fullstack",
+    sectionId: "fullstack",
   },
   {
     id: "secure-engineering",
@@ -63,6 +63,6 @@ export const domains: Domain[] = [
       { name: "Lost & Found RBAC", slug: "lf-rbac" },
       { name: "S.H.A.R.E Privacy", slug: "share-privacy" },
     ],
-    sectionId: "projects-systems",
+    sectionId: "systems",
   },
 ];

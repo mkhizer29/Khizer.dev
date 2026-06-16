@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/Hero/HeroSection";
+import PortfolioSections from "@/components/sections/PortfolioSections";
 import ProjectSections from "@/components/sections/ProjectSections";
 import AllProjectDetails from "@/components/sections/AllProjectDetails";
 import DeploymentSection from "@/components/sections/DeploymentSection";
@@ -12,6 +13,7 @@ export default function Home() {
     <main className="relative">
       <Navbar />
       <HeroSection />
+      <PortfolioSections />
       <ProjectSections />
       <AllProjectDetails />
       <DeploymentSection />

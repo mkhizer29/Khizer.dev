@@ -19,7 +19,7 @@ export default function ProjectSections() {
     <>
       {/* ── Full-Stack / Frontend / Backend ── */}
       <ProjectCategorySection
-        id="projects-fullstack"
+        id="fullstack"
         title="Full-Stack Projects"
         subtitle="Application Layer"
         description="End-to-end platforms—from database design and backend APIs to interactive frontends. Each project handles real users, real data, and real impact."
@@ -29,7 +29,7 @@ export default function ProjectSections() {
 
       {/* ── AI & ML ── */}
       <ProjectCategorySection
-        id="projects-ai"
+        id="aiml"
         title="AI & ML Projects"
         subtitle="Intelligence Layer"
         description="RAG pipelines, ensemble learning, and metaheuristic optimization—building systems that learn, adapt, and reason from data."
@@ -39,7 +39,7 @@ export default function ProjectSections() {
 
       {/* ── Systems ── */}
       <ProjectCategorySection
-        id="projects-systems"
+        id="systems"
         title="Systems Projects"
         subtitle="Infrastructure Layer"
         description="OS kernels, distributed computing, and blockchain nodes—low-level engineering where correctness and performance are everything."

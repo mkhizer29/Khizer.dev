@@ -115,7 +115,7 @@ export default function HeroSection() {
             {/* CTA Buttons — premium, cohesive with monochrome */}
             <motion.div custom={4} variants={fadeUp} className="flex flex-wrap gap-3 mt-1">
               <a
-                href="#projects-fullstack"
+                href="#portfolio-sections"
                 id="cta-view-projects"
                 className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-lg text-sm font-medium tracking-wide transition-all duration-300 hover:scale-[1.03]"
                 style={{
