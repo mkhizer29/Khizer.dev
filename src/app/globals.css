@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+/* ══════════════════════════════════════════════
+   KHIZER.DEV — Design System
+   Dark, premium, engineering-lab aesthetic
+   ══════════════════════════════════════════════ */
+
+@theme {
+  /* Domain accent colors */
+  --color-cyan-glow: #00e5ff;
+  --color-green-glow: #00ff88;
+  --color-purple-glow: #a855f7;
+
+  /* Core palette */
+  --color-bg-primary: #0a0a0f;
+  --color-bg-secondary: #111118;
+  --color-bg-card: #16161e;
+  --color-bg-glass: rgba(22, 22, 30, 0.6);
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-border-glow: rgba(0, 229, 255, 0.15);
+
+  --color-text-primary: #f0f0f5;
+  --color-text-secondary: #8a8a9a;
+  --color-text-muted: #55556a;
+
+  /* Typography */
+  --font-display: "Bebas Neue", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Spacing */
+  --spacing-section: 6rem;
+}
+
+/* ── Base resets ── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Dot grid background ── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Glass panel utility ── */
+.glass-panel {
+  background: var(--color-bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 12px;
+}
+
+/* ── Glow utilities ── */
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.15), 0 0 60px rgba(0, 229, 255, 0.05);
+}
+.glow-green {
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.15), 0 0 60px rgba(0, 255, 136, 0.05);
+}
+.glow-purple {
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.15), 0 0 60px rgba(168, 85, 247, 0.05);
+}
+
+/* ── Section shared styles ── */
+.section-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ── Selection color ── */
+::selection {
+  background: rgba(0, 229, 255, 0.25);
+  color: #fff;
+}
+
+/* ── Focus visible ── */
+:focus-visible {
+  outline: 2px solid var(--color-cyan-glow);
+  outline-offset: 2px;
+}
