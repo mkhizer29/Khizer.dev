@@ -112,17 +112,23 @@ function DomainCard({
     );
   });
 
-  // Colors
-  const bgColor = isActive ? "#1a1a24" : "#12121a";
-  const borderOpacity = isActive ? 0.6 : 0.15;
-  const textOpacity = isActive ? 1 : 0.45;
+  // Colors — premium dark glass palette
+  const bgColor = isActive ? "#141420" : "#0e0e18";
+  const borderOpacity = isActive ? 0.5 : 0.12;
+  const textOpacity = isActive ? 1 : 0.4;
+  const headingColor = isActive ? "#c8ccd4" : "#55556a";
+  const headingShadowColor = isActive ? "#080810" : "#060610";
+  const subtitleColor = isActive ? "#7a7e8a" : "#44445a";
+  const descColor = isActive ? "#8a8e9a" : "#44445a";
+  const rowBg = isActive ? "#1a1a28" : "#10101c";
+  const rowBorderOpacity = isActive ? 0.12 : 0.04;
 
   return (
     <group ref={groupRef}>
-      {/* 3D Box body — the main card */}
+      {/* ── Card body — dark glass surface ── */}
       <RoundedBox
         args={[cardW, cardH, cardD]}
-        radius={0.08}
+        radius={0.1}
         smoothness={4}
         onPointerOver={() => onHover(index)}
         onPointerOut={() => onUnhover()}
@@ -131,130 +137,257 @@ function DomainCard({
         <meshBasicMaterial
           color={bgColor}
           transparent
-          opacity={isActive ? 0.95 : 0.55}
+          opacity={isActive ? 0.97 : 0.5}
           depthWrite={false}
         />
       </RoundedBox>
 
-      {/* Edge highlight — colored border line on top edge */}
-      <mesh position={[0, cardH / 2 - 0.02, cardD / 2 + 0.001]}>
-        <planeGeometry args={[cardW - 0.1, 0.035]} />
+      {/* ── Depth gradient layer — top darker zone ── */}
+      <mesh position={[0, cardH / 4 + 0.1, cardD / 2 + 0.003]}>
+        <planeGeometry args={[cardW - 0.06, cardH * 0.48]} />
         <meshBasicMaterial
-          color={domain.color}
+          color="#0a0a14"
           transparent
-          opacity={borderOpacity}
+          opacity={isActive ? 0.35 : 0.15}
+          depthWrite={false}
         />
       </mesh>
 
-      {/* Side accent strip */}
-      <mesh position={[-cardW / 2 + 0.02, 0, cardD / 2 + 0.001]}>
-        <planeGeometry args={[0.03, cardH * 0.5]} />
+      {/* ── Border highlights — thin metallic edges ── */}
+
+      {/* Top border — accent colored */}
+      <mesh position={[0, cardH / 2 - 0.015, cardD / 2 + 0.004]}>
+        <planeGeometry args={[cardW - 0.08, 0.025]} />
         <meshBasicMaterial
           color={domain.color}
           transparent
-          opacity={borderOpacity * 0.6}
+          opacity={borderOpacity * 0.9}
         />
       </mesh>
 
-      {/* ── Text Content ── */}
+      {/* Bottom border — subtle metallic */}
+      <mesh position={[0, -cardH / 2 + 0.015, cardD / 2 + 0.004]}>
+        <planeGeometry args={[cardW - 0.08, 0.012]} />
+        <meshBasicMaterial
+          color="#888899"
+          transparent
+          opacity={borderOpacity * 0.3}
+        />
+      </mesh>
 
-      {/* Domain label — BIG and bold */}
+      {/* Left border */}
+      <mesh position={[-cardW / 2 + 0.012, 0, cardD / 2 + 0.004]}>
+        <planeGeometry args={[0.008, cardH - 0.08]} />
+        <meshBasicMaterial
+          color="#666680"
+          transparent
+          opacity={borderOpacity * 0.25}
+        />
+      </mesh>
+
+      {/* Right border */}
+      <mesh position={[cardW / 2 - 0.012, 0, cardD / 2 + 0.004]}>
+        <planeGeometry args={[0.008, cardH - 0.08]} />
+        <meshBasicMaterial
+          color="#666680"
+          transparent
+          opacity={borderOpacity * 0.25}
+        />
+      </mesh>
+
+      {/* ── TEXT CONTENT ── */}
+
+      {/* Layer label — small eyebrow ABOVE heading */}
       <Text
-        position={[0, 0.9, cardD / 2 + 0.02]}
-        fontSize={0.34}
-        color={domain.color}
+        position={[0, 1.25, cardD / 2 + 0.02]}
+        fontSize={0.075}
+        color={isActive ? domain.color : "#44445a"}
         anchorX="center"
         anchorY="middle"
         maxWidth={cardW - 0.4}
-        letterSpacing={0.08}
+        letterSpacing={0.12}
+      >
+        {domain.subtitle.toUpperCase()}
+      </Text>
+
+      {/* Thin line under eyebrow */}
+      <mesh position={[0, 1.15, cardD / 2 + 0.02]}>
+        <planeGeometry args={[0.6, 0.002]} />
+        <meshBasicMaterial
+          color={domain.color}
+          transparent
+          opacity={borderOpacity * 0.35}
+        />
+      </mesh>
+
+      {/* Heading shadow — embossed depth layer */}
+      <Text
+        position={[0.006, 0.86, cardD / 2 + 0.012]}
+        fontSize={0.28}
+        color={headingShadowColor}
+        anchorX="center"
+        anchorY="middle"
+        maxWidth={cardW - 0.15}
+        letterSpacing={0.04}
         textAlign="center"
+        fontWeight={700}
       >
         {domain.label}
       </Text>
 
-      {/* Subtitle */}
+      {/* Heading — main text with domain accent color */}
       <Text
-        position={[0, 0.5, cardD / 2 + 0.02]}
-        fontSize={0.11}
-        color={isActive ? "#8a8a9a" : "#55556a"}
+        position={[0, 0.88, cardD / 2 + 0.02]}
+        fontSize={0.28}
+        color={isActive ? domain.color : "#55556a"}
         anchorX="center"
         anchorY="middle"
-        maxWidth={cardW - 0.4}
+        maxWidth={cardW - 0.15}
+        letterSpacing={0.04}
+        textAlign="center"
+        fontWeight={700}
       >
-        {domain.subtitle}
+        {domain.label}
+      </Text>
+
+      {/* Heading highlight — subtle lighter overlay for depth */}
+      <Text
+        position={[0, 0.89, cardD / 2 + 0.025]}
+        fontSize={0.28}
+        color={headingColor}
+        anchorX="center"
+        anchorY="middle"
+        maxWidth={cardW - 0.15}
+        letterSpacing={0.04}
+        textAlign="center"
+        fontWeight={700}
+      >
+        {domain.label}
       </Text>
 
       {/* Divider line */}
-      <mesh position={[0, 0.3, cardD / 2 + 0.02]}>
-        <planeGeometry args={[cardW * 0.5, 0.005]} />
+      <mesh position={[0, 0.48, cardD / 2 + 0.02]}>
+        <planeGeometry args={[cardW * 0.5, 0.003]} />
         <meshBasicMaterial
           color={domain.color}
           transparent
-          opacity={borderOpacity * 0.5}
+          opacity={borderOpacity * 0.4}
         />
       </mesh>
 
       {/* Description */}
       <Text
-        position={[0, 0.0, cardD / 2 + 0.02]}
-        fontSize={0.085}
-        color={isActive ? "#9a9aaa" : "#55556a"}
+        position={[0, 0.22, cardD / 2 + 0.02]}
+        fontSize={0.078}
+        color={descColor}
         anchorX="center"
         anchorY="middle"
-        maxWidth={cardW - 0.5}
-        lineHeight={1.5}
+        maxWidth={cardW - 0.4}
+        lineHeight={1.6}
         textAlign="center"
       >
         {domain.description}
       </Text>
 
-      {/* Project list */}
-      {domain.projects.slice(0, 3).map((proj, pi) => (
-        <group key={proj.slug} position={[0, -0.55 - pi * 0.25, cardD / 2 + 0.02]}>
-          {/* Dot */}
-          <mesh position={[-0.8, 0, 0]}>
-            <circleGeometry args={[0.03, 16]} />
-            <meshBasicMaterial
-              color={domain.color}
-              transparent
-              opacity={textOpacity * 0.7}
-            />
-          </mesh>
-          {/* Project name */}
-          <Text
-            position={[0, 0, 0]}
-            fontSize={0.09}
-            color={isActive ? "#e0e0e8" : "#666680"}
-            anchorX="center"
-            anchorY="middle"
-            maxWidth={cardW - 0.6}
-          >
-            {proj.name}
-          </Text>
-        </group>
-      ))}
+      {/* ── Project Rows — raised glass pill strips ── */}
+      {domain.projects.slice(0, 3).map((proj, pi) => {
+        const rowY = -0.3 - pi * 0.35;
+        const rowW = cardW - 0.3;
+        const rowH = 0.28;
 
-      {/* Glow edge effect for active card */}
+        return (
+          <group key={proj.slug} position={[0, rowY, cardD / 2 + 0.01]}>
+            {/* Row background — raised glass strip */}
+            <RoundedBox
+              args={[rowW, rowH, 0.04]}
+              radius={0.04}
+              smoothness={3}
+            >
+              <meshBasicMaterial
+                color={rowBg}
+                transparent
+                opacity={isActive ? 0.85 : 0.35}
+                depthWrite={false}
+              />
+            </RoundedBox>
+
+            {/* Row top edge highlight */}
+            <mesh position={[0, rowH / 2 - 0.005, 0.025]}>
+              <planeGeometry args={[rowW - 0.06, 0.003]} />
+              <meshBasicMaterial
+                color="#777788"
+                transparent
+                opacity={rowBorderOpacity * 1.5}
+              />
+            </mesh>
+
+            {/* Row bottom shadow */}
+            <mesh position={[0, -rowH / 2 + 0.003, 0.025]}>
+              <planeGeometry args={[rowW - 0.06, 0.003]} />
+              <meshBasicMaterial
+                color="#000008"
+                transparent
+                opacity={isActive ? 0.2 : 0.05}
+              />
+            </mesh>
+
+            {/* Icon circle */}
+            <mesh position={[-rowW / 2 + 0.22, 0, 0.025]}>
+              <circleGeometry args={[0.08, 20]} />
+              <meshBasicMaterial
+                color={domain.color}
+                transparent
+                opacity={textOpacity * 0.15}
+              />
+            </mesh>
+
+            {/* Icon dot */}
+            <mesh position={[-rowW / 2 + 0.22, 0, 0.03]}>
+              <circleGeometry args={[0.03, 16]} />
+              <meshBasicMaterial
+                color={domain.color}
+                transparent
+                opacity={textOpacity * 0.5}
+              />
+            </mesh>
+
+            {/* Project name */}
+            <Text
+              position={[0.1, 0, 0.03]}
+              fontSize={0.09}
+              color={isActive ? "#d4d4dc" : "#55556a"}
+              anchorX="center"
+              anchorY="middle"
+              maxWidth={rowW - 0.7}
+              fontWeight={500}
+            >
+              {proj.name}
+            </Text>
+          </group>
+        );
+      })}
+
+      {/* ── Glow effect — active card back glow ── */}
       {isActive && (
-        <mesh position={[0, 0, -cardD / 2 - 0.01]} scale={[1.02, 1.02, 1]}>
+        <mesh position={[0, 0, -cardD / 2 - 0.02]} scale={[1.04, 1.04, 1]}>
           <planeGeometry args={[cardW, cardH]} />
           <meshBasicMaterial
             color={domain.color}
             transparent
-            opacity={0.06}
+            opacity={0.05}
             depthWrite={false}
           />
         </mesh>
       )}
 
-      {/* Corner accent */}
-      <Float speed={1.5} rotationIntensity={0} floatIntensity={0.15}>
-        <mesh position={[cardW / 2 - 0.15, cardH / 2 - 0.15, cardD / 2 + 0.03]}>
-          <circleGeometry args={[0.04, 16]} />
+      {/* Corner accent dot */}
+      <Float speed={1.5} rotationIntensity={0} floatIntensity={0.12}>
+        <mesh position={[cardW / 2 - 0.14, cardH / 2 - 0.14, cardD / 2 + 0.03]}>
+          <circleGeometry args={[0.035, 16]} />
           <meshBasicMaterial
             color={domain.color}
             transparent
-            opacity={textOpacity * 0.5}
+            opacity={textOpacity * 0.45}
           />
         </mesh>
       </Float>

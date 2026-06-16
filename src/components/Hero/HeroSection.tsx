@@ -46,23 +46,8 @@ export default function HeroSection() {
             initial="hidden"
             animate="visible"
           >
-            {/* Status badge */}
-            <motion.div custom={0} variants={fadeUp}>
-              <span
-                className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-[11px] font-mono tracking-[0.2em] uppercase"
-                style={{
-                  border: "1px solid rgba(148,163,184,0.15)",
-                  color: "rgba(203,213,225,0.7)",
-                  background: "rgba(148,163,184,0.04)",
-                }}
-              >
-                <span
-                  className="w-1.5 h-1.5 rounded-full animate-pulse"
-                  style={{ background: "#94a3b8" }}
-                />
-                Open to Opportunities
-              </span>
-            </motion.div>
+
+
 
             {/* Name — dominant typographic anchor */}
             <motion.h1

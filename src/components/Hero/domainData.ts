@@ -24,7 +24,7 @@ export const domains: Domain[] = [
     label: "AI SYSTEMS",
     subtitle: "Intelligence Layer",
     description:
-      "RAG systems, ML pipelines, model evaluation, cited AI tools.",
+      "Applied AI, RAG workflows, machine learning models, and intelligent automation.",
     color: "#6FA8DC",
     colorRgb: "111, 168, 220",
     projects: [
@@ -35,11 +35,11 @@ export const domains: Domain[] = [
     sectionId: "aiml",
   },
   {
-    id: "product-builds",
-    label: "PRODUCT BUILDS",
+    id: "web-systems",
+    label: "WEB SYSTEMS",
     subtitle: "Application Layer",
     description:
-      "SaaS platforms, backend APIs, dashboards, real product workflows.",
+      "Full-stack platforms, backend APIs, dashboards, and real product workflows.",
     color: "#E9A93A",
     colorRgb: "233, 169, 58",
     projects: [
@@ -50,18 +50,17 @@ export const domains: Domain[] = [
     sectionId: "fullstack",
   },
   {
-    id: "secure-engineering",
-    label: "SECURE ENGINEERING",
-    subtitle: "Trust Layer",
+    id: "secure-systems",
+    label: "SECURE SYSTEMS",
+    subtitle: "Security Layer",
     description:
-      "API testing, RBAC, authentication, PII protection, database validation.",
+      "Distributed systems, operating systems, blockchain logic, testing, and secure workflows.",
     color: "#8B5CF6",
     colorRgb: "139, 92, 246",
     projects: [
-      { name: "Lumo QA", slug: "lumo-qa" },
-      { name: "UniPool Testing", slug: "unipool-testing" },
-      { name: "Lost & Found RBAC", slug: "lf-rbac" },
-      { name: "S.H.A.R.E Privacy", slug: "share-privacy" },
+      { name: "Distributed Crawler / PageRank", slug: "distributed-pagerank" },
+      { name: "xv6 MLFQ Scheduler", slug: "xv6-mlfq" },
+      { name: "Bitcoin Node / Solidity Banking", slug: "bitcoin-node" },
     ],
     sectionId: "systems",
   },
