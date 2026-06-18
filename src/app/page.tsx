@@ -1,8 +1,8 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/Hero/HeroSection";
 import PortfolioSections from "@/components/sections/PortfolioSections";
-import ProjectSections from "@/components/sections/ProjectSections";
-import AllProjectDetails from "@/components/sections/AllProjectDetails";
+import MainProjectsSection from "@/components/sections/MainProjectsSection";
+import TechnicalStudiesSection from "@/components/sections/TechnicalStudiesSection";
 import DeploymentSection from "@/components/sections/DeploymentSection";
 import ExperienceSection from "@/components/sections/ExperienceSection";
 import ContactSection from "@/components/sections/ContactSection";
@@ -14,8 +14,8 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <PortfolioSections />
-      <ProjectSections />
-      <AllProjectDetails />
+      <MainProjectsSection />
+      <TechnicalStudiesSection />
       <DeploymentSection />
       <ExperienceSection />
       <ContactSection />

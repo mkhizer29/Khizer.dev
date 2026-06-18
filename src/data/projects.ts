@@ -11,6 +11,8 @@ export type ProjectDomain =
   | "blockchain";
 
 export type ProjectCategory = "fullstack" | "ai-ml" | "systems";
+export type ProjectType = "project" | "technical-study";
+export type ShowcaseType = "app-window" | "technical-visual" | "none";
 
 export interface ProjectColors {
   primary: string;
@@ -21,6 +23,7 @@ export interface ProjectColors {
 
 export interface Project {
   slug: string;
+  type: ProjectType;
   title: string;
   tagline: string;
   description: string;
@@ -37,17 +40,40 @@ export interface Project {
   challenges?: string[];
   securityNotes?: string;
   metrics?: Record<string, string>;
+
+  // ── New detailed fields for "Projects" ──
+  showcaseType?: ShowcaseType;
+  about?: {
+    problem: string;
+    solution: string;
+    myRole: string;
+  };
+  features?: string[];
+  stackDetails?: Record<string, string[]>;
+  technicalHighlights?: string[];
+  learnings?: string[];
+
+  // ── New detailed fields for "Technical Studies" ──
+  technicalStudyDetails?: {
+    studyType: string;
+    focus: string;
+    whatWasImplemented: string[];
+    takeaway: string;
+  };
 }
 
 export const projects: Project[] = [
-  // ── Full-Stack / Frontend / Backend ──────────────────
+  // ═══════════════════════════════════════════════════════
+  // MAIN PROJECTS
+  // ═══════════════════════════════════════════════════════
 
   {
     slug: "unipool",
+    type: "project",
+    showcaseType: "app-window",
     title: "UniPool",
     tagline: "University Carpooling Platform",
-    description:
-      "Verified campus ride-sharing platform for IBA students with IBA-email-only access, scheduled/instant rides, gender-aware ride options, driver onboarding, vehicle management, ride publishing, route intelligence, stop sequencing, fare suggestions, live tracking, payment settlement, mutual ratings, and license-plate verification.",
+    description: "Verified campus ride-sharing platform for IBA students with IBA-email-only access, scheduled/instant rides, gender-aware ride options, and live tracking.",
     domains: ["product-builds", "secure-engineering"],
     category: "fullstack",
     colors: {
@@ -57,30 +83,50 @@ export const projects: Project[] = [
       text: "#F9F6EF",
     },
     tags: ["Full-Stack", "Backend/API", "Frontend", "PostgreSQL", "Prisma", "Auth", "Real-Time", "Route Intelligence"],
-    stack: [
-      "React 19", "Vite", "Node.js", "Express",
-      "PostgreSQL", "Prisma", "JWT",
-      "Leaflet", "OSRM", "Nominatim", "SSE",
-    ],
+    stack: ["React 19", "Vite", "Node.js", "Express", "PostgreSQL", "Prisma", "JWT", "Leaflet", "OSRM", "Nominatim", "SSE"],
     github: "https://github.com/aimansabir/Uni-Pool-Project",
     featured: true,
     role: "Full-Stack Developer",
     impact: "Built a complete campus mobility platform handling real-time ride matching for 100+ concurrent users.",
-    challenges: [
-      "Designed route intelligence with OSRM for optimal stop sequencing and fare calculation",
-      "Built SSE-based live tracking with sub-second position updates",
-      "Implemented gender-aware matching logic with privacy-first filtering",
-      "Created JWT auth flow with IBA-email-only domain restriction",
+    
+    about: {
+      problem: "University students frequently struggle with expensive independent commutes or uncoordinated, unsafe carpooling arrangements.",
+      solution: "A closed-loop, verified platform that exclusively connects students from the same university to share rides safely, reducing costs and carbon footprint.",
+      myRole: "Architected the backend APIs, developed the route-matching algorithms, built the frontend UI, and integrated real-time tracking.",
+    },
+    features: [
+      "IBA-email domain restricted authentication",
+      "Real-time ride publishing and matching",
+      "Gender-aware ride filtering logic",
+      "Dynamic fare suggestions based on route distance",
+      "Sub-second position updates via Server-Sent Events (SSE)",
+      "Automated license-plate verification",
+      "Mutual driver-passenger rating system",
     ],
-    securityNotes: "JWT-based auth, IBA-email domain restriction, license-plate verification, input validation on all API endpoints.",
+    stackDetails: {
+      "Frontend": ["React 19", "Vite", "Tailwind CSS"],
+      "Backend": ["Node.js", "Express", "Prisma ORM"],
+      "Database": ["PostgreSQL"],
+      "Auth / Security": ["JWT", "Domain Restriction"],
+      "Mapping / Routing": ["Leaflet", "OSRM", "Nominatim", "SSE"],
+    },
+    technicalHighlights: [
+      "Designed route intelligence with OSRM for optimal stop sequencing",
+      "Built low-latency SSE-based live tracking",
+      "Created normalized relational schema for complex ride lifecycle states",
+    ],
+    learnings: [
+      "Managing complex state transitions for real-time ride tracking taught me the importance of robust server-sent events over constant polling.",
+    ],
   },
 
   {
     slug: "share",
+    type: "project",
+    showcaseType: "app-window",
     title: "S.H.A.R.E",
     tagline: "Mental Health SaaS Platform",
-    description:
-      "Multi-role mental-health SaaS platform for patients, professionals, and admins, with protected portals for bookings, chat, mood tracking, professional verification, analytics, crisis workflows, pseudonymous access, professional discovery, appointment booking, and secure messaging.",
+    description: "Multi-role mental-health SaaS platform for patients, professionals, and admins, with protected portals, secure messaging, and mood analytics.",
     domains: ["product-builds", "secure-engineering"],
     category: "fullstack",
     colors: {
@@ -90,29 +136,97 @@ export const projects: Project[] = [
       text: "#F5F3FF",
     },
     tags: ["Frontend/UIUX", "SaaS", "Firebase", "Firestore", "Auth", "Privacy", "Role-Based Access"],
-    stack: [
-      "React", "Vite", "Tailwind CSS",
-      "Firebase Auth", "Firestore", "Zustand",
-    ],
+    stack: ["React", "Vite", "Tailwind CSS", "Firebase Auth", "Firestore", "Zustand"],
     live: "https://share-platform-2a6a2.web.app",
     featured: true,
     role: "Frontend & UX Lead",
     impact: "Delivered a privacy-first mental health platform supporting 3 user roles with pseudonymous patient access.",
-    challenges: [
-      "Designed multi-role portal architecture with Firebase custom claims",
-      "Built real-time chat with Firestore listeners and message encryption",
-      "Implemented mood tracking analytics with Zustand state management",
-      "Created crisis workflow with immediate escalation and notification triggers",
+    
+    about: {
+      problem: "Accessing mental health support is often hindered by privacy concerns and fragmented communication tools between patients and professionals.",
+      solution: "A unified SaaS platform providing secure, pseudonymous portals for patients to book sessions, chat securely, and track moods while allowing professionals to manage cases.",
+      myRole: "Led the frontend architecture, designed the UI/UX for all three role portals, and integrated Firebase backend services.",
+    },
+    features: [
+      "Pseudonymous patient access and onboarding",
+      "Multi-role dashboards (Admin, Professional, Patient)",
+      "Secure real-time chat with message encryption",
+      "Interactive mood tracking and analytics",
+      "Appointment scheduling and professional discovery",
+      "Automated crisis escalation workflows",
     ],
-    securityNotes: "Pseudonymous patient IDs, role-based Firestore rules, professional verification workflow, encrypted messaging.",
+    stackDetails: {
+      "Frontend": ["React", "Vite", "Tailwind CSS", "Zustand"],
+      "Backend / DB": ["Firebase Auth", "Firestore"],
+      "Auth / Security": ["Role-based Custom Claims", "Encrypted Messaging"],
+    },
+    technicalHighlights: [
+      "Designed multi-role portal architecture with Firebase custom claims",
+      "Built real-time chat with Firestore listeners",
+      "Implemented mood tracking analytics with complex Zustand state management",
+    ],
+    learnings: [
+      "Balancing high-security requirements with a seamless, comforting user experience requires deep integration between UX design and backend access control rules.",
+    ],
+  },
+
+  {
+    slug: "lumo-assistant",
+    type: "project",
+    showcaseType: "app-window",
+    title: "Lumo Assistant",
+    tagline: "AI Academic RAG Chatbot Platform",
+    description: "AI academic assistant where students select subject-specific chatbots and receive cited answers from curated textbooks and lecture notes.",
+    domains: ["ai-systems", "product-builds", "secure-engineering"],
+    category: "fullstack",
+    colors: {
+      primary: "#00e5ff",
+      secondary: "#0891b2",
+      bg: "rgba(0,229,255,0.04)",
+      text: "#ecfeff",
+    },
+    tags: ["AI Product", "Next.js", "Supabase", "RAG", "Auth", "Dashboard", "QA Planning"],
+    stack: ["Next.js", "React", "TypeScript", "Supabase", "Tailwind CSS", "AnythingLLM", "REST APIs", "RAG"],
+    github: "https://github.com/aimansabir/Lumo-Assistant",
+    featured: true,
+    role: "Lead Developer",
+    impact: "Built an AI academic tool serving cited answers from curated knowledge bases across multiple university subjects.",
+    
+    about: {
+      problem: "Generic AI chatbots hallucinate academic facts. Students need reliable, cited answers based strictly on their actual course materials.",
+      solution: "A Retrieval-Augmented Generation (RAG) platform that scopes AI answers exclusively to admin-curated textbooks and lecture slides per subject.",
+      myRole: "Architected the Next.js frontend, Supabase backend, and integrated the AnythingLLM RAG pipeline via REST APIs.",
+    },
+    features: [
+      "Subject-specific AI workspaces",
+      "Strict RAG-enforced answer generation with citations",
+      "Supabase authenticated user dashboards",
+      "Admin interface for uploading and indexing course materials",
+      "Persistent chat history and session management",
+    ],
+    stackDetails: {
+      "Frontend": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "Backend": ["Supabase", "REST APIs"],
+      "AI / ML": ["AnythingLLM", "RAG Pipeline"],
+      "Auth / Security": ["Supabase Auth", "Workspace Isolation"],
+    },
+    technicalHighlights: [
+      "Architected RAG pipeline with AnythingLLM for high-accuracy knowledge retrieval",
+      "Designed structured workspace naming conventions for scalable context injection",
+      "Built protected dashboard routing and session persistence",
+    ],
+    learnings: [
+      "Tuning RAG chunking strategies and prompts was critical to eliminate hallucinations and ensure the AI always cited the specific lecture slide.",
+    ],
   },
 
   {
     slug: "lost-and-found",
+    type: "project",
+    showcaseType: "app-window",
     title: "Campus Lost & Found",
-    tagline: "Management System",
-    description:
-      "Full-stack campus Lost & Found platform for reporting, searching, claiming, and managing lost/found items. Includes normalized Oracle database, weighted SQL matching algorithm, OTP email verification, high-value claim approval rules, RBAC-based admin controls, and PII-protection workflows.",
+    tagline: "Item Management System",
+    description: "Full-stack campus Lost & Found platform for reporting, searching, claiming, and managing lost/found items with intelligent SQL matching.",
     domains: ["product-builds", "secure-engineering"],
     category: "fullstack",
     colors: {
@@ -126,86 +240,44 @@ export const projects: Project[] = [
     featured: true,
     role: "Full-Stack Developer",
     impact: "Built a campus-wide item recovery system with intelligent matching that reduced manual search time by 60%.",
-    challenges: [
-      "Designed weighted SQL matching algorithm scoring item similarity across attributes",
-      "Built OTP email verification for claim authenticity",
-      "Implemented high-value item approval workflow with admin escalation",
-      "Created normalized Oracle DB schema for items, claims, users, and audit logs",
-    ],
-    securityNotes: "RBAC admin controls, OTP verification, PII-protection on user data, proxied messaging between claimants.",
-  },
 
-  {
-    slug: "lumo-assistant",
-    title: "Lumo Assistant",
-    tagline: "AI Academic RAG Chatbot Platform",
-    description:
-      "AI academic assistant where students select subject-specific chatbots and receive cited answers from curated textbooks, lecture notes, and past papers. Includes Supabase authentication, protected dashboard routing, subject workspace loading, chat navigation, and admin-controlled subject creation.",
-    domains: ["ai-systems", "product-builds", "secure-engineering"],
-    category: "fullstack",
-    colors: {
-      primary: "#00e5ff",
-      secondary: "#0891b2",
-      bg: "rgba(0,229,255,0.04)",
-      text: "#ecfeff",
+    about: {
+      problem: "University lost and found systems are highly fragmented, leading to poor recovery rates and manual matching overhead.",
+      solution: "A centralized platform utilizing an intelligent weighted matching algorithm to automatically connect lost reports with found reports.",
+      myRole: "Designed the Oracle database schema, wrote the matching algorithms, and built the full-stack web application.",
     },
-    tags: ["AI Product", "Next.js", "Supabase", "RAG", "Auth", "Dashboard", "QA Planning"],
-    stack: [
-      "Next.js", "React", "TypeScript", "Supabase",
-      "Tailwind CSS", "AnythingLLM", "REST APIs", "RAG",
+    features: [
+      "Weighted SQL-based item matching algorithm",
+      "OTP email verification for claim authenticity",
+      "High-value claim approval workflow (Admin escalation)",
+      "PII-protected proxied messaging between users",
+      "Role-based access control (Students vs. Admins)",
+      "Comprehensive audit logging",
     ],
-    github: "https://github.com/aimansabir/Lumo-Assistant",
-    featured: true,
-    role: "Lead Developer",
-    impact: "Built an AI academic tool serving cited answers from curated knowledge bases across multiple university subjects.",
-    challenges: [
-      "Architected RAG pipeline with AnythingLLM for subject-specific knowledge retrieval",
-      "Designed structured workspace naming convention for scalable knowledge base management",
-      "Built Supabase auth with protected dashboard routing and session persistence",
-      "Created admin interface for subject creation and workspace configuration",
-    ],
-    securityNotes: "QA/security planning for citation integrity, answer reliability, role-based access, performance, and CI quality gates.",
-  },
-
-  // ── AI / ML ──────────────────────────────────────────
-
-  {
-    slug: "kaggle-ml",
-    title: "Kaggle Tabular ML",
-    tagline: "Classification & Regression Ensemble Modeling",
-    description:
-      "End-to-end ML pipelines for imbalanced insurance-claims classification and housing-price regression using preprocessing, feature selection, PCA, cross-validation, model benchmarking, and boosted-tree stacking.",
-    domains: ["ai-systems"],
-    category: "ai-ml",
-    colors: {
-      primary: "#3B82F6",
-      secondary: "#64748B",
-      bg: "rgba(59,130,246,0.04)",
-      text: "#E2E8F0",
+    stackDetails: {
+      "Frontend": ["React", "Tailwind CSS"],
+      "Backend": ["Python", "Flask"],
+      "Database": ["Oracle SQL"],
+      "Auth / Security": ["OTP", "RBAC", "PII Protection"],
+      "Algorithms": ["Weighted Feature Matching"],
     },
-    tags: ["Machine Learning", "Classification", "Regression", "Ensemble", "Data Science"],
-    stack: [
-      "Python", "scikit-learn", "XGBoost", "LightGBM",
-      "CatBoost", "Logistic Regression", "PCA", "GridSearchCV",
+    technicalHighlights: [
+      "Designed weighted SQL matching algorithm scoring item similarity across varying attributes",
+      "Created a highly normalized Oracle DB schema",
+      "Built secure claim workflows to prevent fraudulent item claiming",
     ],
-    featured: false,
-    role: "ML Engineer",
-    impact: "Achieved 0.64560 AUROC for classification and 12.58 RMSE for regression using ensemble stacking methods.",
-    challenges: [
-      "Handled severe class imbalance in insurance claims dataset with SMOTE and class weights",
-      "Built ensemble stacking pipeline combining XGBoost, LightGBM, and CatBoost",
-      "Optimized hyperparameters using GridSearchCV with stratified cross-validation",
-      "Applied PCA for dimensionality reduction while preserving 95% variance",
+    learnings: [
+      "Building the weighted SQL matcher taught me how to handle fuzzy categorical comparisons directly within the database layer for performance.",
     ],
-    metrics: { "AUROC": "0.64560", "RMSE": "12.58116" },
   },
 
   {
     slug: "ai-maze-solver",
+    type: "project",
+    showcaseType: "technical-visual",
     title: "AI Maze Solver",
     tagline: "EA vs PSO Pathfinding",
-    description:
-      "Interactive maze-solving simulator comparing Evolutionary Algorithm and Particle Swarm Optimization for pathfinding, with real-time path animation and performance analytics.",
+    description: "Interactive maze-solving simulator comparing Evolutionary Algorithm and Particle Swarm Optimization for pathfinding, with real-time analytics.",
     domains: ["ai-systems"],
     category: "ai-ml",
     colors: {
@@ -215,30 +287,44 @@ export const projects: Project[] = [
       text: "#F0FDF4",
     },
     tags: ["Metaheuristics", "Pathfinding", "Visualization", "Algorithm Comparison"],
-    stack: [
-      "Python", "Pygame", "Evolutionary Algorithm",
-      "Particle Swarm Optimization", "Matplotlib",
-    ],
+    stack: ["Python", "Pygame", "Evolutionary Algorithm", "Particle Swarm Optimization", "Matplotlib"],
     featured: false,
     role: "Algorithm Developer",
     impact: "PSO achieved ~15% faster convergence than EA in maze pathfinding benchmarks.",
-    challenges: [
-      "Implemented custom PSO particle representation for discrete maze grid traversal",
-      "Designed fitness function balancing path length, validity, and convergence speed",
-      "Built real-time Pygame visualization for path evolution across generations",
-      "Created comparative analytics dashboard with Matplotlib for algorithm benchmarking",
-    ],
-    metrics: { "PSO Speedup": "~15%" },
-  },
 
-  // ── Systems ──────────────────────────────────────────
+    about: {
+      problem: "Understanding how different metaheuristic algorithms navigate discrete, highly constrained search spaces (like mazes) requires visual insight.",
+      solution: "A visual simulation platform that pits Evolutionary Algorithms against Particle Swarm Optimization in real-time maze solving.",
+      myRole: "Implemented both metaheuristic algorithms from scratch, designed the grid environment, and built the visualization engine.",
+    },
+    features: [
+      "Real-time Pygame visualization of algorithm search spaces",
+      "Custom discrete-space Particle Swarm Optimization implementation",
+      "Evolutionary Algorithm with custom crossover/mutation logic",
+      "Comparative analytics dashboard (Matplotlib)",
+      "Dynamic maze generation",
+    ],
+    stackDetails: {
+      "AI / ML": ["Evolutionary Algorithm", "Particle Swarm Optimization"],
+      "Visualization": ["Pygame", "Matplotlib"],
+      "Language": ["Python"],
+    },
+    technicalHighlights: [
+      "Implemented custom PSO particle representation for discrete maze grid traversal",
+      "Designed complex fitness function balancing path length, validity, and convergence speed",
+    ],
+    learnings: [
+      "Adapting PSO, typically used for continuous spaces, to a discrete grid required creative velocity mapping techniques to prevent particles from jumping walls.",
+    ],
+  },
 
   {
     slug: "distributed-pagerank",
+    type: "project",
+    showcaseType: "technical-visual",
     title: "Distributed PageRank",
     tagline: "Web Crawler & Parallel PageRank Engine",
-    description:
-      "Distributed graph-processing pipeline that fetches archived pages from CommonCrawl, extracts hyperlinks, constructs directed graphs, and computes PageRank using Ray workers and actor-based shared state.",
+    description: "Distributed graph-processing pipeline that fetches archived pages, constructs directed graphs, and computes PageRank using Ray workers.",
     domains: ["systems"],
     category: "systems",
     colors: {
@@ -252,92 +338,136 @@ export const projects: Project[] = [
     featured: false,
     role: "Systems Developer",
     impact: "Processed graphs of ~37K nodes and ~68K directed edges using distributed Ray workers.",
-    challenges: [
-      "Designed actor-based shared state for concurrent graph construction across Ray workers",
-      "Built efficient hyperlink extraction pipeline from CommonCrawl WARC archives",
-      "Implemented iterative PageRank with convergence detection and damping factor tuning",
-      "Handled worker failures and retry logic in distributed crawling pipeline",
+    
+    about: {
+      problem: "Computing PageRank on large internet subgraphs cannot fit in memory and requires robust distributed computation.",
+      solution: "A parallel pipeline using Ray that streams data from CommonCrawl, constructs the graph distributively, and iteratively computes PageRank.",
+      myRole: "Engineered the Ray worker architecture, built the crawler parser, and implemented the distributed PageRank algorithm.",
+    },
+    features: [
+      "Distributed task execution using Ray",
+      "Actor-based shared state management for graph building",
+      "Parallel hyperlink extraction from CommonCrawl WARC files",
+      "Iterative PageRank computation with dampening and convergence detection",
+      "Fault-tolerant worker retry logic",
     ],
-    metrics: { "Nodes": "~37K", "Edges": "~68K" },
+    stackDetails: {
+      "Distributed Processing": ["Ray Framework"],
+      "Data Processing": ["NetworkX", "BeautifulSoup", "CommonCrawl API"],
+      "Language": ["Python"],
+    },
+    technicalHighlights: [
+      "Designed actor-based shared state for concurrent graph construction across Ray workers",
+      "Built an efficient, memory-safe pipeline to parse massive WARC archives",
+      "Implemented PageRank convergence detection across partitioned graphs",
+    ],
+    learnings: [
+      "Managing distributed state and handling out-of-memory errors taught me the nuances of parallel graph processing and actor synchronization.",
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════
+  // TECHNICAL STUDIES
+  // ═══════════════════════════════════════════════════════
+
+  {
+    slug: "kaggle-ml",
+    type: "technical-study",
+    title: "Kaggle ML Work",
+    tagline: "Tabular ML & Ensemble Modeling",
+    description: "End-to-end ML pipelines for imbalanced classification and regression.",
+    domains: ["ai-systems"],
+    category: "ai-ml",
+    colors: { primary: "#3B82F6", secondary: "#64748B", bg: "rgba(59,130,246,0.04)", text: "#E2E8F0" },
+    tags: ["Machine Learning", "Ensemble"],
+    stack: ["Python", "scikit-learn", "XGBoost", "LightGBM"],
+    featured: false,
+    technicalStudyDetails: {
+      studyType: "Applied Machine Learning Study",
+      focus: "Imbalanced Data, Dimensionality Reduction, Stacking",
+      whatWasImplemented: [
+        "SMOTE & class weights for extreme class imbalance",
+        "PCA dimensionality reduction preserving 95% variance",
+        "Boosted-tree stacking ensemble (XGBoost, LightGBM, CatBoost)",
+        "GridSearchCV stratified optimization",
+      ],
+      takeaway: "Deepened expertise in tabular data processing and tree-based ensemble models.",
+    },
+    metrics: { "AUROC": "0.64560", "RMSE": "12.58" },
   },
 
   {
     slug: "xv6-mlfq",
+    type: "technical-study",
     title: "xv6 MLFQ Scheduler",
     tagline: "OS Scheduling Implementation",
-    description:
-      "Operating systems project implementing Multi-Level Feedback Queue scheduling with process priority management, timer tick accounting, starvation prevention, and scheduler behavior analysis.",
+    description: "Multi-Level Feedback Queue scheduling in the xv6 operating system.",
     domains: ["systems"],
     category: "systems",
-    colors: {
-      primary: "#A3E635",
-      secondary: "#F59E0B",
-      bg: "rgba(163,230,53,0.04)",
-      text: "#E5E7EB",
-    },
-    tags: ["Operating Systems", "Kernel", "Scheduling", "C Programming"],
+    colors: { primary: "#A3E635", secondary: "#F59E0B", bg: "rgba(163,230,53,0.04)", text: "#E5E7EB" },
+    tags: ["Operating Systems", "Kernel", "C"],
     stack: ["C", "xv6", "Operating Systems"],
     featured: false,
-    role: "Systems Programmer",
-    impact: "Implemented MLFQ scheduling in xv6 kernel with starvation prevention and priority boosting.",
-    challenges: [
-      "Modified xv6 kernel scheduler to support multiple priority queues",
-      "Implemented timer tick accounting for CPU burst tracking per process",
-      "Built starvation prevention with periodic priority boosting across all queues",
-      "Analyzed scheduler behavior under mixed I/O-bound and CPU-bound workloads",
-    ],
+    technicalStudyDetails: {
+      studyType: "Operating Systems Internals",
+      focus: "Process Management, CPU Scheduling, Kernel Programming",
+      whatWasImplemented: [
+        "Multiple priority queues within xv6 kernel",
+        "Timer tick accounting to track CPU bursts",
+        "Starvation prevention via periodic priority boosting",
+        "Analysis of mixed I/O vs CPU workloads",
+      ],
+      takeaway: "Strengthened understanding of kernel-level process scheduling and low-level C memory management.",
+    },
   },
 
   {
     slug: "bitcoin-node",
-    title: "Bitcoin Full Node & Miner",
+    type: "technical-study",
+    title: "Bitcoin Node / Miner",
     tagline: "Blockchain Node Implementation",
-    description:
-      "Blockchain node/miner implementing proof-of-work mining, UTXO validation, transaction verification, double-spend prevention, chain validation, and signature verification.",
+    description: "Working implementation of proof-of-work mining and UTXO validation.",
     domains: ["secure-engineering", "blockchain"],
     category: "systems",
-    colors: {
-      primary: "#F59E0B",
-      secondary: "#B45309",
-      bg: "rgba(245,158,11,0.04)",
-      text: "#FDE68A",
-    },
-    tags: ["Blockchain", "Cryptography", "P2P", "Proof-of-Work"],
-    stack: ["Python", "Blockchain Concepts"],
+    colors: { primary: "#F59E0B", secondary: "#B45309", bg: "rgba(245,158,11,0.04)", text: "#FDE68A" },
+    tags: ["Blockchain", "Proof-of-Work", "Cryptography"],
+    stack: ["Python", "Cryptography", "P2P"],
     featured: false,
-    role: "Blockchain Developer",
-    impact: "Built a working Bitcoin-style full node with complete UTXO validation and proof-of-work mining.",
-    challenges: [
-      "Implemented UTXO model with transaction input/output validation",
-      "Built proof-of-work mining with adjustable difficulty targeting",
-      "Created chain validation with fork detection and longest-chain selection",
-      "Designed signature verification for transaction authenticity",
-    ],
+    technicalStudyDetails: {
+      studyType: "Blockchain Architecture Study",
+      focus: "Consensus Mechanisms, Distributed Ledgers, Cryptography",
+      whatWasImplemented: [
+        "UTXO model with transaction input/output validation",
+        "Proof-of-work mining with adjustable difficulty targets",
+        "Longest-chain selection and fork resolution",
+        "Cryptographic signature verification",
+      ],
+      takeaway: "Gained foundational insight into decentralized trust systems and cryptographic data structures.",
+    },
   },
 
   {
     slug: "solidity-banking",
-    title: "Solidity Banking Contract",
+    type: "technical-study",
+    title: "Solidity Banking",
     tagline: "Ethereum Smart Contract",
-    description:
-      "Smart contract implementing banking-style operations with blockchain-based account and transaction logic on Ethereum.",
+    description: "Banking-style smart contract on Ethereum testnet.",
     domains: ["secure-engineering", "blockchain"],
     category: "systems",
-    colors: {
-      primary: "#F59E0B",
-      secondary: "#B45309",
-      bg: "rgba(245,158,11,0.04)",
-      text: "#FDE68A",
-    },
-    tags: ["Smart Contracts", "Ethereum", "DeFi", "Solidity"],
-    stack: ["Solidity", "Ethereum", "Smart Contracts"],
+    colors: { primary: "#F59E0B", secondary: "#B45309", bg: "rgba(245,158,11,0.04)", text: "#FDE68A" },
+    tags: ["Smart Contracts", "Solidity", "DeFi"],
+    stack: ["Solidity", "Ethereum"],
     featured: false,
-    role: "Smart Contract Developer",
-    impact: "Deployed banking-style smart contract handling deposits, withdrawals, and transfers on Ethereum testnet.",
-    challenges: [
-      "Implemented reentrancy guards and withdrawal patterns for secure fund management",
-      "Built role-based access control for admin operations",
-    ],
+    technicalStudyDetails: {
+      studyType: "Web3 Smart Contract Study",
+      focus: "Smart Contract Security, EVM, DeFi Basics",
+      whatWasImplemented: [
+        "On-chain deposits, withdrawals, and account transfers",
+        "Reentrancy guards and secure withdrawal patterns",
+        "Role-based access controls for admin functions",
+      ],
+      takeaway: "Learned the critical security paradigms needed for immutable, public execution environments.",
+    },
   },
 ];
 
