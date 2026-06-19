@@ -36,6 +36,8 @@ export interface Project {
   live?: string;
   featured: boolean;
   role?: string;
+  timeline?: string;
+  team?: string;
   impact?: string;
   challenges?: string[];
   securityNotes?: string;
@@ -84,7 +86,6 @@ export const projects: Project[] = [
     },
     tags: ["Full-Stack", "Backend/API", "Frontend", "PostgreSQL", "Prisma", "Auth", "Real-Time", "Route Intelligence"],
     stack: ["React 19", "Vite", "Node.js", "Express", "PostgreSQL", "Prisma", "JWT", "Leaflet", "OSRM", "Nominatim", "SSE"],
-    github: "https://github.com/aimansabir/Uni-Pool-Project",
     featured: true,
     role: "Full-Stack Developer",
     impact: "Built a complete campus mobility platform handling real-time ride matching for 100+ concurrent users.",
@@ -106,9 +107,9 @@ export const projects: Project[] = [
     stackDetails: {
       "Frontend": ["React 19", "Vite", "Tailwind CSS"],
       "Backend": ["Node.js", "Express", "Prisma ORM"],
+      "Mapping / Routing": ["Leaflet", "OSRM", "Nominatim", "SSE"],
       "Database": ["PostgreSQL"],
       "Auth / Security": ["JWT", "Domain Restriction"],
-      "Mapping / Routing": ["Leaflet", "OSRM", "Nominatim", "SSE"],
     },
     technicalHighlights: [
       "Designed route intelligence with OSRM for optimal stop sequencing",
