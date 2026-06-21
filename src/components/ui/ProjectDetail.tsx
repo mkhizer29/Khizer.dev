@@ -14,15 +14,11 @@ interface ProjectDetailProps {
 export default function ProjectDetail({ project, index }: ProjectDetailProps) {
   return (
     <div className="w-full mb-24 lg:mb-32">
-      {/* Outer Premium Glass Card */}
       <div
-        className="relative rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-xl shadow-[0_30px_120px_rgba(0,0,0,0.35)] overflow-hidden"
-        style={{ padding: 'clamp(2rem, 5vw, 4rem)' }}
+        className="relative w-full"
+        style={{ padding: 'clamp(1rem, 3vw, 2rem) 0' }}
       >
-        {/* Subtle Inner Glow */}
-        <div
-          className="absolute top-0 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
-        />
+        {/* Project Background Glow (top right) */}
         <div
           className="absolute -top-40 -right-40 w-96 h-96 rounded-full blur-[100px] opacity-20 pointer-events-none"
           style={{ background: project.colors.primary }}
@@ -245,7 +241,7 @@ export default function ProjectDetail({ project, index }: ProjectDetailProps) {
 
           {/* Right Column: Visual / UI Showcase */}
           <div className="relative flex w-full justify-center lg:justify-end h-full">
-            <div className="sticky top-32 z-20 w-full h-fit pb-12">
+            <div className="relative z-20 w-full h-fit pb-12">
               <ProjectShowcase project={project} />
             </div>
           </div>

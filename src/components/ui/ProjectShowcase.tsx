@@ -25,7 +25,7 @@ function MobileShowcase({ project }: { project: Project }) {
   const [imgError, setImgError] = useState(false);
 
   return (
-    <div className="relative flex w-full justify-center lg:justify-end">
+    <div className="relative flex w-full justify-center lg:justify-center">
       {/* Background radial glow */}
       <div 
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[100px] opacity-30 pointer-events-none z-0"
