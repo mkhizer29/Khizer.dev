@@ -45,7 +45,7 @@ export default function ProjectDetail({ project, index }: ProjectDetailProps) {
               </a>
               <div className="flex flex-wrap items-center gap-3">
                 <span
-                  className="px-3 py-1 text-[10px] md:text-xs font-bold uppercase tracking-widest rounded-full"
+                  className="px-4 py-2 text-[10px] md:text-xs font-bold uppercase tracking-widest rounded-full"
                   style={{
                     background: `linear-gradient(135deg, ${project.colors.primary}15, transparent)`,
                     border: `1px solid ${project.colors.primary}40`,
@@ -54,12 +54,7 @@ export default function ProjectDetail({ project, index }: ProjectDetailProps) {
                 >
                   {project.category}
                 </span>
-                {project.role && (
-                  <>
-                    <span className="text-slate-400 text-xs font-medium">{project.role}</span>
-                    <span className="w-1 h-1 rounded-full bg-slate-600" />
-                  </>
-                )}
+
                 <span className="flex items-center gap-1.5 text-slate-300 text-xs font-medium">
                   <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
                   Completed
@@ -69,7 +64,7 @@ export default function ProjectDetail({ project, index }: ProjectDetailProps) {
 
             {/* 2. Title & Summary */}
             <div style={{ marginBottom: project.live ? '2.5rem' : '4rem' }}>
-              <div className="flex items-center gap-5 mb-3">
+              <div className="flex flex-wrap items-center gap-5 mb-3">
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white drop-shadow-sm">
                   {project.title}
                 </h2>
@@ -87,14 +82,34 @@ export default function ProjectDetail({ project, index }: ProjectDetailProps) {
                     <span className="text-sm font-bold tracking-wide">GitHub</span>
                   </a>
                 )}
+                {project.role && (
+                  <div className="flex w-full max-w-[250px] items-center gap-2.5 rounded-2xl bg-white/[0.035] border border-white/10 px-3.5 py-2.5 shadow-[0_8px_24px_rgba(0,0,0,0.18)] relative overflow-hidden group lg:ml-auto backdrop-blur-xl shrink-0">
+                    <div
+                      className="absolute right-0 top-1/2 -translate-y-1/2 w-40 h-[150%] blur-3xl pointer-events-none opacity-20"
+                      style={{ background: project.colors.primary }}
+                    />
+
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 relative">
+                      <User size={16} style={{ color: project.colors.primary }} />
+                      <div
+                        className="absolute inset-0 rounded-full opacity-30 blur-md"
+                        style={{ boxShadow: `0 0 20px ${project.colors.primary}` }}
+                      />
+                    </div>
+                    <div className="relative z-10">
+                      <p className="text-[0.58rem] font-black uppercase tracking-[0.15em] text-slate-400">Role</p>
+                      <p className="mt-0.5 text-[0.88rem] font-bold leading-tight text-white sm:text-[0.95rem]">{project.role}</p>
+                    </div>
+                  </div>
+                )}
               </div>
               <p
-                className="text-lg md:text-xl lg:text-2xl font-medium mb-6"
+                className="text-lg md:text-xl lg:text-2xl font-medium mb-6 leading-relaxed"
                 style={{ color: project.colors.primary }}
               >
                 {project.tagline}
               </p>
-              <p className="text-base md:text-lg text-slate-300/90 leading-relaxed max-w-2xl">
+              <p className="text-base md:text-lg text-slate-300/90 leading-7 sm:leading-8 max-w-2xl">
                 {project.description}
               </p>
             </div>
@@ -106,14 +121,14 @@ export default function ProjectDetail({ project, index }: ProjectDetailProps) {
                   href={project.live}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-6 py-3 text-sm rounded-xl font-bold tracking-wide transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] flex items-center gap-2"
+                  className="px-5 py-3 sm:px-6 sm:py-3.5 h-12 text-sm rounded-xl font-bold tracking-wide transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] flex items-center justify-center gap-3"
                   style={{
                     background: project.colors.primary,
                     color: project.colors.secondary || '#000',
                   }}
                 >
                   Live Demo
-                  <ExternalLink size={16} />
+                  <ExternalLink size={18} />
                 </a>
               </div>
             )}
@@ -121,50 +136,19 @@ export default function ProjectDetail({ project, index }: ProjectDetailProps) {
             {/* 4. Technology Stack Grid */}
             {project.stackDetails && (
               <div style={{ marginBottom: '3rem' }}>
-                <h3 className="text-[11px] font-bold tracking-widest text-slate-500 uppercase mb-4 flex items-center gap-2">
+                <h3 className="text-[11px] font-bold tracking-widest text-slate-500 uppercase flex items-center gap-2" style={{ marginBottom: '1.25rem' }}>
                   <div className="w-3 h-3 flex items-center justify-center">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={project.colors.primary} strokeWidth="2.5"><path d="M2 12l10-6 10 6-10 6z" /><path d="M2 17l10 6 10-6" /><path d="M2 7l10 6 10-6" /></svg>
                   </div>
                   Technology Stack
                 </h3>
-                <StackBreakdown stackDetails={project.stackDetails} primaryColor={project.colors.primary} />
-              </div>
-            )}
-
-            {/* 5. Meta Strip (Timeline, Role, Team) */}
-            {(project.timeline || project.role || project.team) && (
-              <div style={{ marginBottom: '4rem' }}>
-                <div className="flex flex-wrap items-center rounded-2xl bg-white/[0.015] border border-white/5 py-4 px-6 gap-8 lg:gap-16 w-fit">
-                  {project.timeline && (
-                    <div className="flex items-center gap-3">
-                      <div className="opacity-40"><Calendar size={18} /></div>
-                      <div>
-                        <p className="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-0.5">Timeline</p>
-                        <p className="text-xs text-slate-300 font-medium">{project.timeline}</p>
-                      </div>
-                    </div>
-                  )}
-                  {project.role && (
-                    <div className="flex items-center gap-3">
-                      <div className="opacity-40"><Code2 size={18} /></div>
-                      <div>
-                        <p className="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-0.5">Role</p>
-                        <p className="text-xs text-slate-300 font-medium">{project.role}</p>
-                      </div>
-                    </div>
-                  )}
-                  {project.team && (
-                    <div className="flex items-center gap-3">
-                      <div className="opacity-40"><Users size={18} /></div>
-                      <div>
-                        <p className="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-0.5">Team</p>
-                        <p className="text-xs text-slate-300 font-medium">{project.team}</p>
-                      </div>
-                    </div>
-                  )}
+                <div style={{ marginTop: '1.25rem' }}>
+                  <StackBreakdown stackDetails={project.stackDetails} primaryColor={project.colors.primary} />
                 </div>
               </div>
             )}
+
+
 
             {/* 6. Case Study Anchor & Sections */}
             <div id={`${project.slug}-case-study`} className="scroll-mt-32">
@@ -173,32 +157,32 @@ export default function ProjectDetail({ project, index }: ProjectDetailProps) {
               {project.about && (
                 <div style={{ marginBottom: '4rem' }}>
                   <h3 className="text-[11px] font-bold tracking-widest text-slate-500 uppercase mb-4">Project Breakdown</h3>
-                  <div className="flex flex-col" style={{ gap: '1rem' }}>
-                    <div className="rounded-2xl bg-white/[0.02] border border-white/5 flex gap-4" style={{ padding: '1.5rem' }}>
-                      <div className="mt-1 w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0" style={{ color: project.colors.primary }}>
-                        <AlertCircle size={14} />
+                  <div className="flex flex-col space-y-4">
+                    <div className="rounded-[1.5rem] bg-white/[0.02] border border-white/5 flex flex-col sm:flex-row gap-4 sm:gap-5 p-5 sm:p-6">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0" style={{ color: project.colors.primary }}>
+                        <AlertCircle className="w-5 h-5 sm:w-6 sm:h-6" />
                       </div>
-                      <div>
-                        <h4 className="text-sm font-bold text-white mb-1.5"><span className="text-slate-500 font-mono text-xs inline-block" style={{ marginRight: '0.75rem' }}>01</span>Problem</h4>
-                        <p className="text-[13px] leading-relaxed text-slate-400">{project.about.problem}</p>
-                      </div>
-                    </div>
-                    <div className="rounded-2xl bg-white/[0.02] border border-white/5 flex gap-4" style={{ padding: '1.5rem' }}>
-                      <div className="mt-1 w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0" style={{ color: project.colors.primary }}>
-                        <ShieldCheck size={14} />
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-bold text-white mb-1.5"><span className="text-slate-500 font-mono text-xs inline-block" style={{ marginRight: '0.75rem' }}>02</span>Solution</h4>
-                        <p className="text-[13px] leading-relaxed text-slate-400">{project.about.solution}</p>
+                      <div className="pt-1">
+                        <h4 className="text-base sm:text-lg font-bold text-white mb-2"><span className="text-slate-500 font-mono text-xs inline-block mr-3">01</span>Problem</h4>
+                        <p className="text-sm sm:text-[15px] leading-7 text-slate-400">{project.about.problem}</p>
                       </div>
                     </div>
-                    <div className="rounded-2xl bg-white/[0.02] border border-white/5 flex gap-4" style={{ padding: '1.5rem' }}>
-                      <div className="mt-1 w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0" style={{ color: project.colors.primary }}>
-                        <User size={14} />
+                    <div className="rounded-[1.5rem] bg-white/[0.02] border border-white/5 flex flex-col sm:flex-row gap-4 sm:gap-5 p-5 sm:p-6">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0" style={{ color: project.colors.primary }}>
+                        <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6" />
                       </div>
-                      <div>
-                        <h4 className="text-sm font-bold text-white mb-1.5"><span className="text-slate-500 font-mono text-xs inline-block" style={{ marginRight: '0.75rem' }}>03</span>My Role</h4>
-                        <p className="text-[13px] leading-relaxed text-slate-400">{project.about.myRole}</p>
+                      <div className="pt-1">
+                        <h4 className="text-base sm:text-lg font-bold text-white mb-2"><span className="text-slate-500 font-mono text-xs inline-block mr-3">02</span>Solution</h4>
+                        <p className="text-sm sm:text-[15px] leading-7 text-slate-400">{project.about.solution}</p>
+                      </div>
+                    </div>
+                    <div className="rounded-[1.5rem] bg-white/[0.02] border border-white/5 flex flex-col sm:flex-row gap-4 sm:gap-5 p-5 sm:p-6">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0" style={{ color: project.colors.primary }}>
+                        <User className="w-5 h-5 sm:w-6 sm:h-6" />
+                      </div>
+                      <div className="pt-1">
+                        <h4 className="text-base sm:text-lg font-bold text-white mb-2"><span className="text-slate-500 font-mono text-xs inline-block mr-3">03</span>My Role</h4>
+                        <p className="text-sm sm:text-[15px] leading-7 text-slate-400">{project.about.myRole}</p>
                       </div>
                     </div>
                   </div>
@@ -209,11 +193,11 @@ export default function ProjectDetail({ project, index }: ProjectDetailProps) {
               {project.features && project.features.length > 0 && (
                 <div style={{ marginBottom: '4rem' }}>
                   <h3 className="text-[11px] font-bold tracking-widest text-slate-500 uppercase mb-4">Key Features</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2" style={{ gap: '1rem' }}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     {project.features.map((feature, idx) => (
-                      <div key={idx} className="rounded-xl bg-white/[0.01] border border-white/5 flex items-start gap-3" style={{ padding: '1rem' }}>
-                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 shadow-sm" style={{ background: project.colors.primary, boxShadow: `0 0 8px ${project.colors.primary}60` }} />
-                        <span className="text-[13px] text-slate-300 leading-snug">{feature}</span>
+                      <div key={idx} className="rounded-xl bg-white/[0.01] border border-white/5 flex items-start gap-3 p-4 sm:p-5">
+                        <div className="mt-2 w-2 h-2 rounded-full shrink-0 shadow-sm" style={{ background: project.colors.primary, boxShadow: `0 0 8px ${project.colors.primary}60` }} />
+                        <span className="text-sm sm:text-[15px] text-slate-300 leading-7">{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -224,11 +208,11 @@ export default function ProjectDetail({ project, index }: ProjectDetailProps) {
               {project.technicalHighlights && project.technicalHighlights.length > 0 && (
                 <div style={{ marginBottom: '4rem' }}>
                   <h3 className="text-[11px] font-bold tracking-widest text-slate-500 uppercase mb-4">Engineering Highlights</h3>
-                  <div className="rounded-2xl border bg-white/[0.015]" style={{ borderColor: `${project.colors.primary}30`, padding: '1.5rem' }}>
+                  <div className="rounded-2xl border bg-white/[0.015] p-5 sm:p-6" style={{ borderColor: `${project.colors.primary}30` }}>
                     <ul className="space-y-4">
                       {project.technicalHighlights.map((highlight, idx) => (
-                        <li key={idx} className="flex items-start gap-3 text-[13px] text-slate-300 leading-relaxed">
-                          <CheckCircle2 size={16} className="mt-0.5 shrink-0" style={{ color: project.colors.primary }} />
+                        <li key={idx} className="flex items-start gap-4 text-sm sm:text-[15px] text-slate-300 leading-7">
+                          <CheckCircle2 className="w-5 h-5 mt-1 shrink-0" style={{ color: project.colors.primary }} />
                           <span>{highlight}</span>
                         </li>
                       ))}
@@ -240,14 +224,14 @@ export default function ProjectDetail({ project, index }: ProjectDetailProps) {
               {/* Challenges & Learnings */}
               {project.learnings && project.learnings.length > 0 && (
                 <div style={{ marginBottom: '4rem' }}>
-                  <div className="rounded-2xl bg-white/[0.02] border border-white/5 relative overflow-hidden" style={{ padding: '1.5rem' }}>
+                  <div className="rounded-2xl bg-white/[0.02] border border-white/5 relative overflow-hidden p-5 sm:p-6 mt-8">
                     <div className="absolute top-0 left-0 w-1 h-full" style={{ background: project.colors.primary }} />
-                    <h3 className="text-[11px] font-bold tracking-widest text-slate-400 uppercase mb-3 flex items-center gap-2">
+                    <h3 className="text-xs font-bold tracking-widest text-slate-400 uppercase mb-5 flex items-center gap-3">
                       <span style={{ color: project.colors.primary }}>✦</span> Challenges & Learnings
                     </h3>
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                       {project.learnings.map((learning, idx) => (
-                        <p key={idx} className="text-[13px] text-slate-400 leading-relaxed">
+                        <p key={idx} className="text-sm sm:text-[15px] text-slate-400 leading-7">
                           {learning}
                         </p>
                       ))}

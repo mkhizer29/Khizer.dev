@@ -34,45 +34,56 @@ export default function StackBreakdown({ stackDetails, primaryColor = "#ffffff" 
   };
 
   return (
-    <div className="flex flex-wrap lg:flex-nowrap gap-y-8 w-full border-t border-white/5 pt-6">
-      {Object.entries(stackDetails).map(([category, items], idx, arr) => (
-        <motion.div
-          key={category}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          custom={idx}
-          className={`flex flex-col flex-1 min-w-[140px] ${idx !== arr.length - 1 ? 'lg:border-r lg:border-white/5 lg:pr-6 mr-6' : ''
-            }`}
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <div style={{ color: primaryColor }}>
-              {getCategoryIcon(category)}
-            </div>
-            <h4 className="text-[11px] font-bold text-white tracking-wide">
-              {category}
-            </h4>
-          </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-flow-col auto-cols-fr gap-y-10 lg:gap-x-6 xl:gap-x-8 w-full">
+      {Object.entries(stackDetails).map(([category, items], idx, arr) => {
+        const isLongLabel = category.length > 12;
 
-          <div className="flex flex-wrap gap-2 mt-auto">
-            {items.map((item) => (
-              <span
-                key={item}
-                className="rounded-lg text-[11px] font-medium tracking-wide whitespace-nowrap"
-                style={{
-                  padding: '0.35rem 0.6rem',
-                  background: "rgba(255, 255, 255, 0.03)",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
-                  color: "#cbd5e1",
-                }}
-              >
-                {item}
-              </span>
-            ))}
+        return (
+          <div key={category} className="relative flex flex-col w-full">
+            {/* Subtle Vertical Divider mathematically centered in the new grid gap */}
+            {idx !== arr.length - 1 && (
+              <div className="hidden lg:block absolute -right-3 xl:-right-4 top-0 bottom-0 w-px bg-white/5" />
+            )}
+
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={idx}
+              className="flex flex-col w-full"
+            >
+              <div className="flex items-center gap-2.5" style={{ marginBottom: '1.25rem' }}>
+                <div style={{ color: primaryColor }} className="shrink-0">
+                  {getCategoryIcon(category)}
+                </div>
+                <h4 
+                  className={`font-bold text-white uppercase whitespace-nowrap ${isLongLabel ? 'text-[10px] tracking-wider' : 'text-[11px] tracking-widest'}`}
+                >
+                  {category}
+                </h4>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {items.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-[0.35rem] font-medium tracking-wide whitespace-nowrap text-slate-300"
+                    style={{
+                      padding: '0.35rem 0.55rem',
+                      fontSize: '0.65rem',
+                      background: "rgba(255, 255, 255, 0.03)",
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
+                    }}
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
-      ))}
+        );
+      })}
     </div>
   );
 }
